@@ -1,4 +1,5 @@
 using Data.Context;
+using IOC.Dependenices;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,27 @@ builder.Services.AddDbContext<ReactivitiesContext>(options =>
 
 #endregion
 
+#region CORS
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ReactivitesPolicy", policy =>
+    {
+        policy.AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials()
+              .WithOrigins("http://localhost:5173", "http://localhost:5173/");
+    });
+});
+
+#endregion
+
+#region Dependency
+
+builder.Services.RegisterServices();
+
+#endregion
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,6 +47,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.UseCors("ReactivitesPolicy");
 
 app.UseHttpsRedirection();
 
