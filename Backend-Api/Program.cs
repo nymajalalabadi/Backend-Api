@@ -23,12 +23,12 @@ builder.Services.AddDbContext<ReactivitiesContext>(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("ReactivitesPolicy", policy =>
+    options.AddPolicy("CorsPolicy", policy =>
     {
         policy.AllowAnyMethod()
               .AllowAnyHeader()
               .AllowCredentials()
-              .WithOrigins("http://localhost:5173", "http://localhost:5173/");
+              .WithOrigins("http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://localhost:5176");
     });
 });
 
@@ -48,7 +48,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseCors("ReactivitesPolicy");
+app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 

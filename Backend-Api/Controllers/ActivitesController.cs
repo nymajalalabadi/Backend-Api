@@ -20,16 +20,21 @@ namespace Backend_Api.Controllers
 
         #region Api
 
-        [HttpGet]
+        [HttpGet("GetAllActivitiesAsync")]
         public async Task<IActionResult> GetAllActivitiesAsync()
         {
             var result = await _activitesService.GetAllActivitiesAsync();
 
-            return new JsonResult(result);
+            return new JsonResult(new
+            {
+                code = 100,
+                message = "Activities retrieved successfully.",
+                data = result
+            });
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetActivityAsync(Guid id)
+        [HttpGet("GetActivityAsync/{id}")]
+        public async Task<IActionResult> GetActivityAsync([FromRoute] Guid id)
         {
             var result = await _activitesService.GetActivityByIdAsync(id);
 
@@ -40,7 +45,7 @@ namespace Backend_Api.Controllers
             return new JsonResult(result);
         }
 
-        [HttpPost]
+        [HttpPost("CreateActivityAsync")]
         public async Task<IActionResult> CreateActivityAsync([FromBody] Activity activity)
         {
 
@@ -76,7 +81,7 @@ namespace Backend_Api.Controllers
             });
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("UpdateActivityAsync")]
         public async Task<IActionResult> UpdateActivityAsync([FromQuery] Guid id, [FromBody] Activity activity)
         {
             if(id != activity.Id)
@@ -116,8 +121,8 @@ namespace Backend_Api.Controllers
         }
 
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteActivityAsync(Guid id)
+        [HttpDelete("DeleteActivityAsync/{id}")]
+        public async Task<IActionResult> DeleteActivityAsync([FromRoute] Guid id)
         {
             if (id == Guid.Empty)
             {
