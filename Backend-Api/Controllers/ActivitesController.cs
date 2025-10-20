@@ -1,5 +1,6 @@
 ﻿using Application.Services.Interfaces;
 using Domian.Entities.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,7 @@ namespace Backend_Api.Controllers
         #region Api
 
         [HttpGet("GetAllActivitiesAsync")]
+        [Authorize]
         public async Task<IActionResult> GetAllActivitiesAsync()
         {
             var result = await _activitesService.GetAllActivitiesAsync();
