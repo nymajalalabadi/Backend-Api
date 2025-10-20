@@ -35,7 +35,7 @@ namespace Backend_Api.Controllers
 
         [HttpGet("GetActivityAsync/{id}")]
         public async Task<IActionResult> GetActivityAsync([FromRoute] Guid id)
-        {
+            {
             var result = await _activitesService.GetActivityByIdAsync(id);
 
             if (result == null)
@@ -81,8 +81,8 @@ namespace Backend_Api.Controllers
             });
         }
 
-        [HttpPut("UpdateActivityAsync")]
-        public async Task<IActionResult> UpdateActivityAsync([FromQuery] Guid id, [FromBody] Activity activity)
+        [HttpPut("UpdateActivityAsync/{id}")]
+        public async Task<IActionResult> UpdateActivityAsync([FromRoute] Guid id, [FromBody] Activity activity)
         {
             if(id != activity.Id)
             {
