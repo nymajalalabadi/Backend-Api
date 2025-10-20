@@ -1,3 +1,5 @@
+using Backend_Api.Services.Implementation;
+using Backend_Api.Services.Interfaces;
 using Data.Context;
 using IOC.Dependenices;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +39,8 @@ builder.Services.AddCors(options =>
 #region Dependency
 
 builder.Services.RegisterServices();
+
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 #endregion
 

@@ -21,6 +21,7 @@ namespace Data.Context
 
         public DbSet<Activity> Activities { get; set; }
 
-        
+        public DbSet<User> Users { get; set; }
+
     }
 }

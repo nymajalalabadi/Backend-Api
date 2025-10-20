@@ -18,12 +18,14 @@ namespace IOC.Dependenices
             #region Repository
 
             services.AddScoped<IActivitesRepository, ActivitesRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             #endregion
 
             #region Service
 
             services.AddScoped<IActivitesService, ActivitesService>();
+            services.AddScoped<IUserService, UserService>();
 
             #endregion
         }

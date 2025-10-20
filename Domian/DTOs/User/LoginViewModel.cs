@@ -12,4 +12,11 @@ namespace Domian.DTOs.User
 
         public string Password { get; set; } = string.Empty;
     }
+
+    public enum LoginResult
+    {
+        Success,
+        Error,
+        UserNotFound
+    }
 }
