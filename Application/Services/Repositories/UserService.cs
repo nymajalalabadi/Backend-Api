@@ -23,6 +23,43 @@ namespace Application.Services.Repositories
 
         #endregion
 
+        public async Task<RegisterResult> RegisterAsync(RegisterViewModel model)
+        {
+            var existingUserByEmail = await _userRepository.GetUserByEmail(model.Email.ToLower().Trim());
+
+            if (existingUserByEmail != null)
+            {
+                return RegisterResult.EmailExists;
+            }
+
+            var existingUserByUsername = await _userRepository.GetUserByUserName(model.UserName.ToLower().Trim());
+
+            if (existingUserByUsername != null)
+            {
+                return RegisterResult.UserNameExists;
+            }
+
+            var hashedPassword = model.Password;
+
+            var newUser = new User
+            {
+                Email = model.Email.ToLower().Trim(),
+                Username = model.UserName.ToLower().Trim(),
+                DisplayName = model.DisplayName.Trim(),
+                Avatar = null,
+                Mobile = null,
+                Password = hashedPassword,
+                IsEmailActive = false,
+                RegisterDate = DateTime.UtcNow
+            };
+
+            await _userRepository.AddUser(newUser);
+            await _userRepository.SaveChangesAsync();
+
+            return RegisterResult.Success;
+        }
+
+
         public async Task<LoginResult> LoginAsync(LoginViewModel model)
         {
             var user = await _userRepository.GetUserByEmail(model.Email.ToLower().Trim());
@@ -45,6 +82,11 @@ namespace Application.Services.Repositories
         public async Task<User> GetUserByEmailAsync(string email)
         {
             return await _userRepository.GetUserByEmail(email.ToLower().Trim());
+        }
+
+        public async Task<User> GetUserById(int Id)
+        {
+            return await _userRepository.GetUserById(Id);
         }
 
     }

@@ -10,8 +10,12 @@ namespace Application.Services.Interfaces
 {
     public interface IUserService
     {
+        Task<RegisterResult> RegisterAsync(RegisterViewModel model);
+
         Task<LoginResult> LoginAsync(LoginViewModel model);
 
         Task<User> GetUserByEmailAsync(string email);
+
+        Task<User> GetUserById(int Id);
     }
 }

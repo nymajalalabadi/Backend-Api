@@ -9,6 +9,14 @@ namespace Domian.Interfaces
 {
     public interface IUserRepository
     {
+        Task<User> GetUserById(int Id);
+
         Task<User> GetUserByEmail(string email);
+
+        Task<User> GetUserByUserName(string userName);
+
+        Task AddUser(User user);
+
+        Task SaveChangesAsync();
     }
 }

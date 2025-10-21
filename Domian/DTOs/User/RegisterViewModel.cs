@@ -16,4 +16,12 @@ namespace Domian.DTOs.User
 
         public string Password { get; set; }
     }
+
+    public enum RegisterResult
+    {
+        Success,
+        EmailExists,
+        UserNameExists,
+        Error
+    }
 }
